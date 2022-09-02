@@ -17,8 +17,6 @@ def missingData():
     return dataset.isnull().sum()
 missing_data_values = missingData()
 
-#print("Missing data\n", missing_data_values)
-
 #percentage of missing data
 def missingDataPercentage():
     total_cells = np.product(dataset.shape)
@@ -59,7 +57,7 @@ print(len(dataset['date'].unique())) #shows that at the time of writing the code
 dataset['date'] = pd.to_datetime(dataset['date'],format="%Y-%m-%d")
 print(dataset['date'].dtype) #now we have a datetime64 type and not an object type
 
-#Graphic visuals of countries in respect to total_cases to date
+#Graphic visuals of countries in respect to a desire feature to date
 def TrackFeatureByCountryGraph(country: string, track_feature: string):
     gk = dataset.groupby("location")
     gk = gk.get_group(country)
@@ -88,4 +86,5 @@ def QuantativeToNumerical(feature: string, dataset):
     return dataset
 
 #QuantativeToNumerical is a slow function (Might be better to create the dictionary list on one's own)
-#dataset = QuantativeToNumerical("location",dataset) #while we work on the data base it is easier to not change them to numerical values yet
+#dataset = QuantativeToNumerical("location",dataset) #while we work on the data base it is easier to not change them to numerical values yet #uncomment this line to 
+#change the quantative to numerical values of location
