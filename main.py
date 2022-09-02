@@ -60,16 +60,16 @@ dataset['date'] = pd.to_datetime(dataset['date'],format="%Y-%m-%d")
 print(dataset['date'].dtype) #now we have a datetime64 type and not an object type
 
 #Graphic visuals of countries in respect to total_cases to date
-def TotalCasesByCountryGraph(country: string):
+def TrackFeatureByCountryGraph(country: string, track_feature: string):
     gk = dataset.groupby("location")
     gk = gk.get_group(country)
     plt.xlabel("Date")
-    plt.ylabel("Total number of cases")
-    plt.title(str(country) + "'s total number of Covid19 cases over time")
+    plt.ylabel(track_feature)
+    plt.title(country + "'s total number of Covid19 " + track_feature + " over time")
     plt.grid(True)
-    plt.fill_between(gk['date'],gk['total_cases'])
+    plt.fill_between(gk['date'],gk[track_feature])
     plt.show()
-#TotalCasesByCountryGraph('Japan') #type whatever country you want
+TrackFeatureByCountryGraph('Mexico','total_deaths') #type whatever country you want
 missing_data_values = missingData()
 print(missing_data_values)
 
