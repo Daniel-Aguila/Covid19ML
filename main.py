@@ -31,11 +31,14 @@ def piePlotMissingData():
     total_cells = np.product(dataset.shape)
     total_missing = missing_data_values.sum()  
     labels = ['Missing','Total']
-    data = [total_missing,total_cells]
+    rounded_missing_percentage = round((total_missing/total_cells)*100,2)
+    total_percentage = 100-rounded_missing_percentage
+    data = [rounded_missing_percentage,total_percentage]
     colors = sns.color_palette("hls", 8)
     plt.pie(data,labels=labels, colors=colors,autopct='%.0f%%')
+    plt.title("Our World in Data's Covid19 data")
     plt.show()
-
+piePlotMissingData()
                             #ANALYZE THE DATA AND ... JUST LOOK AT IT
 
 #iso_code will be possibly drop as it is easier to read location and it provides the same information
@@ -63,11 +66,17 @@ def TrackFeatureByCountryGraph(country: string, track_feature: string):
     gk = gk.get_group(country)
     plt.xlabel("Date")
     plt.ylabel(track_feature)
-    plt.title(country + "'s total number of Covid19 " + track_feature + " over time")
+    if(country[len(country)-1] == 's'):
+        plt.title(country + "' total number of Covid19 " + track_feature + " over time")
+    else:
+        plt.title(country + "'s total number of Covid19 " + track_feature + " over time")
     plt.grid(True)
     plt.fill_between(gk['date'],gk[track_feature])
     plt.show()
-TrackFeatureByCountryGraph('Mexico','total_deaths') #type whatever country you want
+TrackFeatureByCountryGraph('Mexico','new_deaths') #type whatever country you want
+TrackFeatureByCountryGraph('United States','new_deaths')
+TrackFeatureByCountryGraph('France', 'new_deaths')
+TrackFeatureByCountryGraph('Japan','new_deaths')
 missing_data_values = missingData()
 print(missing_data_values)
 
