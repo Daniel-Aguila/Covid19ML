@@ -86,5 +86,4 @@ def QuantativeToNumerical(feature: string, dataset):
     return dataset
 
 #QuantativeToNumerical is a slow function (Might be better to create the dictionary list on one's own)
-#dataset = QuantativeToNumerical("location",dataset) #while we work on the data base it is easier to not change them to numerical values yet #uncomment this line to 
-#change the quantative to numerical values of location
+dataset = QuantativeToNumerical("location",dataset)
