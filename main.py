@@ -17,7 +17,7 @@ def missingData():
     return dataset.isnull().sum()
 missing_data_values = missingData()
 
-print("Missing data\n", missing_data_values)
+#print("Missing data\n", missing_data_values)
 
 #percentage of missing data
 def missingDataPercentage():
@@ -51,17 +51,6 @@ print(dataset['continent'].unique())
 dataset['continent'] = dataset['continent'].fillna(dataset['location']) #A lot of continents that were "NaN" was because 
 #the location was used as the continent, so we just switched over the location to the continent data
 
-#change location from quantative to numerical values
-def QuantativeToNumerical(feature: string, dataset):
-    dictionary_replacement_value = {}
-    for index, value in enumerate(dataset[feature].unique()):
-        dictionary_replacement_value[value] = index
-    dataset = dataset.replace(dictionary_replacement_value)
-    return dataset
-
-#QuantativeToNumerical is a slow function (Might be better to create the dictionary list on one's own)
-dataset = QuantativeToNumerical("location",dataset)
-
 #moving on to date column
 print(dataset['date'].dtype) # shows it is an object, we need it as a date type
 print(len(dataset['date'].unique())) #shows that at the time of writing the code Sept 1st, the days since the data was written shows
@@ -70,8 +59,33 @@ print(len(dataset['date'].unique())) #shows that at the time of writing the code
 dataset['date'] = pd.to_datetime(dataset['date'],format="%Y-%m-%d")
 print(dataset['date'].dtype) #now we have a datetime64 type and not an object type
 
-pd.set_option("display.max_colwidth",None)
-total_Cases_is_null = dataset.loc[dataset['total_cases'].isnull()]
-
+#Graphic visuals of countries in respect to total_cases to date
+def TotalCasesByCountryGraph(country: string):
+    gk = dataset.groupby("location")
+    gk = gk.get_group(country)
+    plt.xlabel("Date")
+    plt.ylabel("Total number of cases")
+    plt.title(str(country) + "'s total number of Covid19 cases over time")
+    plt.grid(True)
+    plt.fill_between(gk['date'],gk['total_cases'])
+    plt.show()
+#TotalCasesByCountryGraph('Japan') #type whatever country you want
 missing_data_values = missingData()
 print(missing_data_values)
+
+dataset = dataset.drop(920) #dropped the index (920) for location Africa, since the first case of covid19 in africa was not the 13th of february 2020, but the 14th
+#and so a lot of the data was missing for the row[s] since data was not being collected
+
+total_Cases_is_null = dataset.loc[dataset['total_cases'].isnull()]
+print(total_Cases_is_null.head())
+
+#change location from quantative to numerical values
+def QuantativeToNumerical(feature: string, dataset):
+    dictionary_replacement_value = {}
+    for index, value in enumerate(dataset[feature].unique()):
+        dictionary_replacement_value[value] = index
+    dataset[feature] = dataset[feature].replace(dictionary_replacement_value)
+    return dataset
+
+#QuantativeToNumerical is a slow function (Might be better to create the dictionary list on one's own)
+#dataset = QuantativeToNumerical("location",dataset) #while we work on the data base it is easier to not change them to numerical values yet
