@@ -44,10 +44,12 @@ def piePlotMissingData():
 #print(dataset['iso_code'][0:10]) #ISO gives AFG as a code for Afghanistan
 #print(dataset['location'].unique()) #shows all the unique values
 
-#since there is no location missing, we can drop the continent column as location is more specific and is still able to give data on
-#geographical location
 #iso_code is also dropped since location is enough for geographical location
-dataset = dataset.drop(columns=['continent','iso_code'])
+dataset = dataset.drop(columns=['iso_code'])
+
+print(dataset['continent'].unique())
+dataset['continent'] = dataset['continent'].fillna(dataset['location']) #A lot of continents that were "NaN" was because 
+#the location was used as the continent, so we just switched over the location to the continent data
 
 #change location from quantative to numerical values
 def QuantativeToNumerical(feature: string, dataset):
@@ -60,8 +62,6 @@ def QuantativeToNumerical(feature: string, dataset):
 #QuantativeToNumerical is a slow function (Might be better to create the dictionary list on one's own)
 dataset = QuantativeToNumerical("location",dataset)
 
-print(dataset.head())
-
 #moving on to date column
 print(dataset['date'].dtype) # shows it is an object, we need it as a date type
 print(len(dataset['date'].unique())) #shows that at the time of writing the code Sept 1st, the days since the data was written shows
@@ -69,3 +69,9 @@ print(len(dataset['date'].unique())) #shows that at the time of writing the code
 #it is object, so this makes it switching to date type on pandas easier.
 dataset['date'] = pd.to_datetime(dataset['date'],format="%Y-%m-%d")
 print(dataset['date'].dtype) #now we have a datetime64 type and not an object type
+
+pd.set_option("display.max_colwidth",None)
+total_Cases_is_null = dataset.loc[dataset['total_cases'].isnull()]
+
+missing_data_values = missingData()
+print(missing_data_values)
