@@ -1,4 +1,3 @@
-from cProfile import label
 import string
 import tensorflow as tf
 import pandas as pd
@@ -68,3 +67,5 @@ print(dataset['date'].dtype) # shows it is an object, we need it as a date type
 print(len(dataset['date'].unique())) #shows that at the time of writing the code Sept 1st, the days since the data was written shows
 #974 days, and the length of the unique values is 974 days. After checking all 974 date entries. They follow the same format even though
 #it is object, so this makes it switching to date type on pandas easier.
+dataset['date'] = pd.to_datetime(dataset['date'],format="%Y-%m-%d")
+print(dataset['date'].dtype) #now we have a datetime64 type and not an object type
