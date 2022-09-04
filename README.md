@@ -13,4 +13,4 @@ We can see that 45% of the data gathered is missing. We can see which features h
 ### Starting to clean the data
 
 #### Continent feature
-I noticed that all the data that was missing from the continent feature, was because the continent data was being used for 'location' in those rows. So I transfered the data that was in 'location' to fill the continent data which solved that issue.
+I noticed that all the data that was missing from the continent feature, was because the continent data was being used for 'location' in those rows. So I transfered the data that was in 'location' to fill the continent data which solved that issue. For example: Some features had 'location' listed as 'Africa', while having the 'continent' feature column with NaN.
