@@ -30,7 +30,7 @@ print("Percentage of missing data: " + str(missing_data_percentage) + "%")
 def piePlotMissingData():
     total_cells = np.product(dataset.shape)
     total_missing = missing_data_values.sum()  
-    labels = ['Missing','Total']
+    labels = ['Missing','Not Missing']
     rounded_missing_percentage = round((total_missing/total_cells)*100,2)
     total_percentage = 100-rounded_missing_percentage
     data = [rounded_missing_percentage,total_percentage]
@@ -39,6 +39,7 @@ def piePlotMissingData():
     plt.title("Our World in Data's Covid19 data")
     plt.show()
 
+piePlotMissingData()
                             #ANALYZE THE DATA AND ... JUST LOOK AT IT
 
 #iso_code will be possibly drop as it is easier to read location and it provides the same information
