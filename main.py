@@ -38,7 +38,7 @@ def piePlotMissingData():
     plt.pie(data,labels=labels, colors=colors,autopct='%.0f%%')
     plt.title("Our World in Data's Covid19 data")
     plt.show()
-piePlotMissingData()
+
                             #ANALYZE THE DATA AND ... JUST LOOK AT IT
 
 #iso_code will be possibly drop as it is easier to read location and it provides the same information
@@ -73,12 +73,24 @@ def TrackFeatureByCountryGraph(country: string, track_feature: string):
     plt.grid(True)
     plt.fill_between(gk['date'],gk[track_feature])
     plt.show()
-TrackFeatureByCountryGraph('Mexico','new_deaths') #type whatever country you want
-TrackFeatureByCountryGraph('United States','new_deaths')
-TrackFeatureByCountryGraph('France', 'new_deaths')
-TrackFeatureByCountryGraph('Japan','new_deaths')
+#TrackFeatureByCountryGraph('Mexico','new_deaths') #type whatever country you want
+
 missing_data_values = missingData()
-print(missing_data_values)
+
+def graphMissingDataValues(missing_values: pd.Series):
+    missing_values = missing_values.to_frame()
+    missing_values.columns = ['count']
+    missing_values.index.names = ['feature']
+    missing_values['feature'] = missing_values.index
+    plt.gcf().subplots_adjust(bottom=0.40)
+    plt.bar(missing_values['feature'],missing_values['count'])
+    plt.xticks(rotation = 90)
+    plt.xlabel("Feature Names")
+    plt.ylabel("Missing Values")
+    plt.show()
+
+graphMissingDataValues(missing_data_values)
+
 
 dataset = dataset.drop(920) #dropped the index (920) for location Africa, since the first case of covid19 in africa was not the 13th of february 2020, but the 14th
 #and so a lot of the data was missing for the row[s] since data was not being collected
