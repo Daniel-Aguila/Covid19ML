@@ -7,6 +7,7 @@ The data that is being use for this project comes from [Our World in Data](https
 
 ## Looking into the dataset
 We can see that 45% of the data gathered is missing. We can see which features have the most data missing in the second image below.
+
 ![alt text](https://github.com/Daniel-Aguila/Covid19ML/blob/main/Assets/missing_data/MissingDataPieGraph.png)![alt text](https://github.com/Daniel-Aguila/Covid19ML/blob/main/Assets/missing_data/missingDataByFeature.png)
 
 ### Starting to clean the data
