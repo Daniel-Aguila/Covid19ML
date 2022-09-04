@@ -11,3 +11,6 @@ We can see that 45% of the data gathered is missing. We can see which features h
 ![alt text](https://github.com/Daniel-Aguila/Covid19ML/blob/main/Assets/missing_data/MissingDataPieGraph.png)![alt text](https://github.com/Daniel-Aguila/Covid19ML/blob/main/Assets/missing_data/missingDataByFeature.png)
 
 ### Starting to clean the data
+
+#### Continent feature
+I noticed that all the data that was missing from the continent feature, was because the continent data was being used for 'location' in those rows. So I transfered the data that was in 'location' to fill the continent data which solved that issue.
