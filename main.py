@@ -23,11 +23,17 @@ def missingDataPercentage():
     total_missing = missing_data_values.sum()   
     return round((total_missing/total_cells)*100,2)
 
+def missingDataPercentagePerFeature():
+    return round(dataset.isnull().sum()/len(dataset)*100,2)
+
 missing_data_percentage = missingDataPercentage()
-print("Percentage of missing data: " + str(missing_data_percentage) + "%")
+missing_data_percentage_per_feature = missingDataPercentagePerFeature()
+print("Percentage of missing data per feature:\n" + str(missing_data_percentage_per_feature))
+print("Percentage of missing data total: " + str(missing_data_percentage) + "%")
 
 #pi plot of missing data...for drama 
 def piePlotMissingData():
+    missing_data_values = missingData()
     total_cells = np.product(dataset.shape)
     total_missing = missing_data_values.sum()  
     labels = ['Missing','Not Missing']
@@ -39,12 +45,9 @@ def piePlotMissingData():
     plt.title("Our World in Data's Covid19 data")
     plt.show()
 
-piePlotMissingData()
-
-missing_data_values = missingData()
-
-def graphMissingDataValues(missing_values: pd.Series):
-    missing_values = missing_values.to_frame()
+def graphMissingDataValues():
+    missing_data_values = missingData()
+    missing_values = missing_data_values.to_frame()
     missing_values.columns = ['count']
     missing_values.index.names = ['feature']
     missing_values['feature'] = missing_values.index
@@ -55,7 +58,6 @@ def graphMissingDataValues(missing_values: pd.Series):
     plt.ylabel("Missing Values")
     plt.show()
 
-graphMissingDataValues(missing_data_values)
                             #ANALYZE THE DATA AND ... JUST LOOK AT IT
 
 #iso_code will be possibly drop as it is easier to read location and it provides the same information
@@ -90,14 +92,7 @@ def TrackFeatureByCountryGraph(country: string, track_feature: string):
     plt.grid(True)
     plt.fill_between(gk['date'],gk[track_feature])
     plt.show()
-#TrackFeatureByCountryGraph('Mexico','new_deaths') #type whatever country you want
-
-
-dataset = dataset.drop(920) #dropped the index (920) for location Africa, since the first case of covid19 in africa was not the 13th of february 2020, but the 14th
-#and so a lot of the data was missing for the row[s] since data was not being collected
-
-total_Cases_is_null = dataset.loc[dataset['total_cases'].isnull()]
-print(total_Cases_is_null.head())
+#TrackFeatureByCountryGraph('Vietnam','new_deaths') #type whatever country you want
 
 #change location from quantative to numerical values
 def QuantativeToNumerical(feature: string, dataset):
@@ -106,6 +101,15 @@ def QuantativeToNumerical(feature: string, dataset):
         dictionary_replacement_value[value] = index
     dataset[feature] = dataset[feature].replace(dictionary_replacement_value)
     return dataset
+
+#Excess mortality rate
+#Since most of the excess mortality is either innacurate and/or missing, I believe the best course of action is to drop the four columns
+#associated with it ['excess_mortality_cumulative_absolute','excess_mortality_cumulative','excess_mortality','excess_mortality_cumulative_per_million']
+#more information as to why it was drop will be available in the Readme in github
+dataset = dataset.drop(columns=['excess_mortality_cumulative_absolute','excess_mortality_cumulative','excess_mortality','excess_mortality_cumulative_per_million'])
+
+
+total_Cases_is_null = dataset.loc[dataset['total_cases'].isnull()]
 
 #QuantativeToNumerical is a slow function (Might be better to create the dictionary list on one's own)
 dataset = QuantativeToNumerical("location",dataset)
