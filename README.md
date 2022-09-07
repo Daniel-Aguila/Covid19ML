@@ -8,14 +8,17 @@ The data that is being use for this project comes from [Our World in Data](https
 ## Looking into the dataset
 We can see that 45% of the data gathered is missing. We can see which features have the most data missing in the second image below.
 
-![alt text](https://github.com/Daniel-Aguila/Covid19ML/blob/main/Assets/missing_data/MissingDataPieGraph.png)
 (Pie graph showing how much of the total data is missing)
-![alt text](https://github.com/Daniel-Aguila/Covid19ML/blob/main/Assets/missing_data/missingDataByFeature.png)
+![alt text](https://github.com/Daniel-Aguila/Covid19ML/blob/main/Assets/missing_data/MissingDataPieGraph.png)
+
 (Bar graphs showing how many values per feature is missing in numerical terms)
-![alt text](https://github.com/Daniel-Aguila/Covid19ML/blob/main/Assets/missing_data/missingDataPerFeature_1.png)
+![alt text](https://github.com/Daniel-Aguila/Covid19ML/blob/main/Assets/missing_data/missingDataByFeature.png)
+
 (This image shows how much percentage is missing per feature. How to read: "a xx.xx" is read as "xx.xx%". First part)
-![alt text](https://github.com/Daniel-Aguila/Covid19ML/blob/main/Assets/missing_data/missingDataPerFeature_2.png)
+![alt text](https://github.com/Daniel-Aguila/Covid19ML/blob/main/Assets/missing_data/missingDataPerFeature_1.png)
+
 (This image shows how much percentage is missing per feature. Second part)
+![alt text](https://github.com/Daniel-Aguila/Covid19ML/blob/main/Assets/missing_data/missingDataPerFeature_2.png)
 
 ### Starting to clean the data
 
